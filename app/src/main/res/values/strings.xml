@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Maze Solver</string>
+
+    <string name="question_text">Can a swallow fly?</string>
+    <string name="solve_label">SOLVE</string>
+    <string name="stop_button_label">STOP</string>
+
+</resources>
