@@ -16,6 +16,9 @@ public class Ticker {
     private int startX;
     private int startY;
 
+    private int height;
+    private int width;
+
 
     // Time Signature Beats per Measure
     private static Ticker instance = null; //globally accessible instance
@@ -25,7 +28,9 @@ public class Ticker {
     private boolean running; //true when ticker is running
 
     // Constructor
-    public Ticker(int aNumberOfBeatsPerMeasure) {
+    public Ticker(int h, int w) {
+        height = h;
+        width = w;
         instance = this;
         running = false;
     }
@@ -153,18 +158,20 @@ public class Ticker {
                 return false;
             }
 
+           //TODO: add code where if current pos is adjacent to end position it would automatically be found
+
             MainActivity.getInstance().getMap()[x][y] = 1;
             MainActivity.getInstance().updateMap();
             //printMap();
             //else {
-            if (y != 10 - 1) { // Checks if not on bottom edge
+            if (y != width - 1) { // Checks if not on bottom edge
 
                 if (completeMap(x, y + 1)) { // Recalls method one down
                     //map[x][y] = 1;
                     return true;
                 }
             }
-            if (x != 8 - 1) { // Checks if not on right edge
+            if (x != height - 1) { // Checks if not on right edge
                 if (completeMap(x + 1, y)) { // Recalls method one to the right
                     //map[x][y] = 1;
                     return true;

@@ -29,13 +29,16 @@ public class MainActivity extends AppCompatActivity {
     private Handler handler;
 
     private int width = 10;
-    private int height = 8;
+    private int height = 11;
 
     //variable to determine which button user is placing, 1 for start, 2 for end, 3 for walls
     private static int whichBlock = 1;
 
 
     private static int[][] map = new int[][] {
+                                {0,0,0,0,0,0, 0, 0, 0, 0},
+                                {0,0,0,0,0,0, 0, 0, 0, 0},
+                                {0,0,0,0,0,0, 0, 0, 0, 0},
                                 {0,0,0,0,0,0, 0, 0, 0, 0},
                                 {0,0,0,0,0,0, 0, 0, 0, 0},
                                 {0,0,0,0,0,0, 0, 0, 0, 0},
@@ -132,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
         handler = new Handler();
         //if existing ticker instance is running use it
         if(Ticker.getInstance() != null) ticker = Ticker.getInstance();
-        else ticker = new Ticker(0);
+        else ticker = new Ticker(height, width);
 
         //initializing layout of maze grid
         TableLayout gameLayout = findViewById(R.id.gameTable);
