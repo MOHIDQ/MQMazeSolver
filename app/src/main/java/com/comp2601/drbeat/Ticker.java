@@ -13,16 +13,6 @@ public class Ticker {
 
     private  String TAG = this.getClass().getSimpleName();
 
-    public static final int MIN_BPM_TEMPO = 20;
-    public static final int MAX_BPM_TEMPO = 240;
-    public static final int DEFAULT_BPM_TEMPO = 88;
-
-    public static final int DEFAULT_BEATS_PER_MEASURE = 4;
-    public static int DOWNBEAT_COUNT = 1;
-
-    public static int beatSkip = 1;
-    public static boolean isTick;
-
     private int startX;
     private int startY;
 
@@ -31,31 +21,14 @@ public class Ticker {
     private static Ticker instance = null; //globally accessible instance
     public static Ticker getInstance(){return instance;}
 
-    private int mBeatsPerMeasure;
-
     // Running
     private boolean running; //true when ticker is running
 
     // Constructor
     public Ticker(int aNumberOfBeatsPerMeasure) {
         instance = this;
-        mBeatsPerMeasure = aNumberOfBeatsPerMeasure;
         running = false;
     }
-
-    // Tick
-    public void playTick() {
-        //ticks are played on the non-downbeat of a bar
-        SoundManager.getInstance().playLow(beatSkip);
-    }
-
-    // Down Beat Accent
-    public void playAccent() {
-        //accents are played on the downbeat of a bar of music
-        SoundManager.getInstance().playHigh(beatSkip);
-    }
-
-
 
 
     // Start the ticker
@@ -84,20 +57,11 @@ public class Ticker {
 
     // Beat
     private class Beat implements Runnable {
-        // Time References
-        Calendar previous; //time of previous beat
-        Calendar current;  //current time sample
-        // Vars
-        int beatCount; //current beat count in measure
-        int bpm; //beatsPerMinute tempo
-        int delay; //milliseconds per beat
-        int elapsed; //elapsed time since last beat
+
 
         // Run
         public void run() {
             // Init
-            previous = Calendar.getInstance();
-            beatCount = DOWNBEAT_COUNT;
             //completeMap(0,0);
             //condition for checking if maze was solved
             if(completeMap(startX,startY)) {
@@ -137,7 +101,7 @@ public class Ticker {
 
 
             // Thread Loop
-            while (running) {
+          /*  while (running) {
                 current = Calendar.getInstance();
                 //get current UI beatsPerMinute tempo setting
                 bpm = MainActivity.getInstance().getBPM();
@@ -172,22 +136,24 @@ public class Ticker {
                 } */
 
 
-            }  //end while
+           // }  //end while
+
         } //end run
 
     }
 
+    //method that solves the maze recursively
     boolean completeMap(int x, int y) {
 
-        if (running) {
-            if (MainActivity.getInstance().map[x][y] == 2) {
+       // if (running) {
+            if (MainActivity.getInstance().getMap()[x][y] == 2) {
                 return true;
             }
-            if (MainActivity.getInstance().map[x][y] == 1 || MainActivity.getInstance().map[x][y] == 3) {
+            if (MainActivity.getInstance().getMap()[x][y] == 1 || MainActivity.getInstance().getMap()[x][y] == 3) {
                 return false;
             }
 
-            MainActivity.getInstance().map[x][y] = 1;
+            MainActivity.getInstance().getMap()[x][y] = 1;
             MainActivity.getInstance().updateMap();
             //printMap();
             //else {
@@ -222,8 +188,8 @@ public class Ticker {
 
 
             return false;
-        }
-        return false;
+       // }
+        //return false;
     }
 
 

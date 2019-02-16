@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private static int whichBlock = 1;
 
 
-    public static int[][] map = new int[][] {
+    private static int[][] map = new int[][] {
                                 {0,0,0,0,0,0, 0, 0, 0, 0},
                                 {0,0,0,0,0,0, 0, 0, 0, 0},
                                 {0,0,0,0,0,0, 0, 0, 0, 0},
@@ -44,23 +44,16 @@ public class MainActivity extends AppCompatActivity {
                                 {0,0,0,0,0,0, 0, 0, 0, 0},
                                 {0,0,0,0,0,0, 0, 0, 0, 0},
                                 {0,0,0,0,0,0, 0, 0, 0, 0}};
-    public Button[][] buttonMap = new Button[height][width];
+    private Button[][] buttonMap = new Button[height][width];
 
     private Button submitBtn;
 
-    int counter = 0;
-    private int mTempo=Ticker.DEFAULT_BPM_TEMPO; //beats per minute
-    private int mBeatsPerMeasure = Ticker.DEFAULT_BEATS_PER_MEASURE;
 
     private Ticker ticker; //time keeper to generate beat ticks
-    private SoundManager soundManager;
 
     //provide global access to main activity instance
     public static MainActivity getInstance(){return instance;}
 
-
-    //instance getters and setters
-    public int getBPM(){return mTempo;}
 
 
     //reenables the submit button
@@ -72,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
         whichBlock = 1;
     }
 
+    public static int[][] getMap() {
+        return map;
+    }
 
     //method that updates the visual of maze being completed
     public void updateMap() {
@@ -136,10 +132,7 @@ public class MainActivity extends AppCompatActivity {
         handler = new Handler();
         //if existing ticker instance is running use it
         if(Ticker.getInstance() != null) ticker = Ticker.getInstance();
-        else ticker = new Ticker(mBeatsPerMeasure);
-
-        soundManager = new SoundManager(this);
-        Log.i(TAG, "SOUND MANAGER MAX VOL: " + soundManager.getMaxVolume());
+        else ticker = new Ticker(0);
 
         //initializing layout of maze grid
         TableLayout gameLayout = findViewById(R.id.gameTable);
