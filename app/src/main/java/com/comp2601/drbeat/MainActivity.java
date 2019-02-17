@@ -28,8 +28,11 @@ public class MainActivity extends AppCompatActivity {
 
     private Handler handler;
 
-    private int width = 10;
-    private int height = 11;
+    private  int width = 10;
+    private  int height = 11;
+
+    private int endX;
+    private int endY;
 
     //variable to determine which button user is placing, 1 for start, 2 for end, 3 for walls
     private static int whichBlock = 1;
@@ -47,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
                                 {0,0,0,0,0,0, 0, 0, 0, 0},
                                 {0,0,0,0,0,0, 0, 0, 0, 0},
                                 {0,0,0,0,0,0, 0, 0, 0, 0}};
+
+    //private static int[][] map = new int[height][width];
     private Button[][] buttonMap = new Button[height][width];
 
     private Button submitBtn;
@@ -70,6 +75,13 @@ public class MainActivity extends AppCompatActivity {
 
     public static int[][] getMap() {
         return map;
+    }
+
+    public int getEndX() {
+        return endX;
+    }
+    public int getEndY() {
+        return endY;
     }
 
     //method that updates the visual of maze being completed
@@ -230,6 +242,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         //that means placing end spot
                         else if(whichBlock == 2) {
+                            endX = iTmp;
+                            endY = jTmp;
                             map[iTmp][jTmp] = 2;
                             b.setBackgroundColor(Color.parseColor("#8fbaf7"));
                             whichBlock++;

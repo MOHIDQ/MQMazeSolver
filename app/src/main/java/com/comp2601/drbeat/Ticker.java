@@ -158,10 +158,28 @@ public class Ticker {
                 return false;
             }
 
-           //TODO: add code where if current pos is adjacent to end position it would automatically be found
+
+
+
 
             MainActivity.getInstance().getMap()[x][y] = 1;
             MainActivity.getInstance().updateMap();
+
+            //TODO: add code where if current pos is adjacent to end position it would automatically be found
+            //conditions that checks adjacent positions of current position to see if end point is there
+            //reduces total amount of searches for when around end point
+            if(x+1 == MainActivity.getInstance().getEndX() && y == MainActivity.getInstance().getEndY()) {
+                return true;
+            }
+            if(x == MainActivity.getInstance().getEndX() && y+1 == MainActivity.getInstance().getEndY()) {
+                return true;
+            }
+            if(x == MainActivity.getInstance().getEndX() && y-1 == MainActivity.getInstance().getEndY()) {
+                return true;
+            }
+            if(x-1 == MainActivity.getInstance().getEndX() && y == MainActivity.getInstance().getEndY()) {
+                return true;
+            }
             //printMap();
             //else {
             if (y != width - 1) { // Checks if not on bottom edge
