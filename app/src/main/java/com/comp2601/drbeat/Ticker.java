@@ -180,34 +180,142 @@ public class Ticker {
             if(x-1 == MainActivity.getInstance().getEndX() && y == MainActivity.getInstance().getEndY()) {
                 return true;
             }
+
+            //condition for checking current position is to the left of the end position
+            if(y < MainActivity.getInstance().getEndY()) {
+                //condition to check if current position is above of the end position
+                if(x < MainActivity.getInstance().getEndX()) {
+                    Log.i("TEST", "LEFT:ABOVE");
+                    if (y != width - 1) { // Checks if not on bottom edge
+
+                        if (completeMap(x, y + 1)) { // Recalls method one down
+                            //map[x][y] = 1;
+                            return true;
+                        }
+                    }
+                    if (x != height - 1) { // Checks if not on right edge
+                        if (completeMap(x + 1, y)) { // Recalls method one to the right
+                            //map[x][y] = 1;
+                            return true;
+                        }
+                    }
+                    if (x != 0) {// Checks if not on left edge
+                        if (completeMap(x - 1, y)) { // Recalls method one to the left
+                            //map[x][y] = 1; // Sets that path value to true;
+                            return true;
+                        }
+                    }
+
+                    if (y != 0) {// Checks if not on top edge
+                        if (completeMap(x, y - 1)) { // Recalls method one up
+                            //map[x][y] = 1;
+                            return true;
+                        }
+                    }
+                }
+                //condition for if current position is below the end position
+                else {
+                    if (y != width - 1) { // Checks if not on bottom edge
+
+                        if (completeMap(x, y + 1)) { // Recalls method one down
+                            //map[x][y] = 1;
+                            return true;
+                        }
+                    }
+                    if (x != 0) {// Checks if not on left edge
+                        if (completeMap(x - 1, y)) { // Recalls method one to the left
+                            //map[x][y] = 1; // Sets that path value to true;
+                            return true;
+                        }
+                    }
+                    if (x != height - 1) { // Checks if not on right edge
+                        if (completeMap(x + 1, y)) { // Recalls method one to the right
+                            //map[x][y] = 1;
+                            return true;
+                        }
+                    }
+
+                    if (y != 0) {// Checks if not on top edge
+                        if (completeMap(x, y - 1)) { // Recalls method one up
+                            //map[x][y] = 1;
+                            return true;
+                        }
+                    }
+                }
+
+
+
+            }
+            //condition for checking if current pos is to the right of the end position
+            else {
+                Log.i("TEST", "RIGHT:ABOVE");
+                //condition for checking if current position is above the end position
+                if(x < MainActivity.getInstance().getEndX()) {
+                    if (y != 0) {// Checks if not on top edge
+                        if (completeMap(x, y - 1)) { // Recalls method one up
+                            //map[x][y] = 1;
+                            return true;
+                        }
+                    }
+                    if (x != height - 1) { // Checks if not on right edge
+                        if (completeMap(x + 1, y)) { // Recalls method one to the right
+                            //map[x][y] = 1;
+                            return true;
+                        }
+                    }
+                    if (y != width - 1) { // Checks if not on bottom edge
+
+                        if (completeMap(x, y + 1)) { // Recalls method one down
+                            //map[x][y] = 1;
+                            return true;
+                        }
+                    }
+
+                    if (x != 0) {// Checks if not on left edge
+                        if (completeMap(x - 1, y)) { // Recalls method one to the left
+                            //map[x][y] = 1; // Sets that path value to true;
+                            return true;
+                        }
+                    }
+                }
+                //condition for checking if current position is below the end position
+                else {
+                    if (y != 0) {// Checks if not on top edge
+                        if (completeMap(x, y - 1)) { // Recalls method one up
+                            //map[x][y] = 1;
+                            return true;
+                        }
+                    }
+                    if (x != 0) {// Checks if not on left edge
+                        if (completeMap(x - 1, y)) { // Recalls method one to the left
+                            //map[x][y] = 1; // Sets that path value to true;
+                            return true;
+                        }
+                    }
+                    if (y != width - 1) { // Checks if not on bottom edge
+
+                        if (completeMap(x, y + 1)) { // Recalls method one down
+                            //map[x][y] = 1;
+                            return true;
+                        }
+                    }
+                    if (x != height - 1) { // Checks if not on right edge
+                        if (completeMap(x + 1, y)) { // Recalls method one to the right
+                            //map[x][y] = 1;
+                            return true;
+                        }
+                    }
+
+
+                }
+
+
+
+            }
+
             //printMap();
             //else {
-            if (y != width - 1) { // Checks if not on bottom edge
 
-                if (completeMap(x, y + 1)) { // Recalls method one down
-                    //map[x][y] = 1;
-                    return true;
-                }
-            }
-            if (x != height - 1) { // Checks if not on right edge
-                if (completeMap(x + 1, y)) { // Recalls method one to the right
-                    //map[x][y] = 1;
-                    return true;
-                }
-            }
-            if (x != 0) {// Checks if not on left edge
-                if (completeMap(x - 1, y)) { // Recalls method one to the left
-                    //map[x][y] = 1; // Sets that path value to true;
-                    return true;
-                }
-            }
-
-            if (y != 0) {// Checks if not on top edge
-                if (completeMap(x, y - 1)) { // Recalls method one up
-                    //map[x][y] = 1;
-                    return true;
-                }
-            }
 
             //}
 
