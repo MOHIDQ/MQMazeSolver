@@ -1,7 +1,5 @@
 package com.comp2601.drbeat;
 
-//TODO: NEED TO ADD CLEAR BUTTON, WHICH CLEARS MAP, NEED TO ADD ABILITY TO PLACE START POINT, END POINT, AND WALL, AND IF WALL IS PICKED IT SHOULD
-//TODO: DISPLACE IT
 
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -19,7 +17,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+//TO CHANGE SIZE OF BOARD, UPDATE VARIABLES WIDTH AND HEIGHT
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -28,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Handler handler;
 
-    private  int width = 10;
-    private  int height = 11;
+    private  static int width = 10;
+    private  static int height = 13;
 
     private int endX;
     private int endY;
@@ -38,20 +36,31 @@ public class MainActivity extends AppCompatActivity {
     private static int whichBlock = 1;
 
 
-    private static int[][] map = new int[][] {
-                                {0,0,0,0,0,0, 0, 0, 0, 0},
-                                {0,0,0,0,0,0, 0, 0, 0, 0},
-                                {0,0,0,0,0,0, 0, 0, 0, 0},
-                                {0,0,0,0,0,0, 0, 0, 0, 0},
-                                {0,0,0,0,0,0, 0, 0, 0, 0},
-                                {0,0,0,0,0,0, 0, 0, 0, 0},
-                                {0,0,0,0,0,0, 0, 0, 0, 0},
-                                {0,0,0,0,0,0, 0, 0, 0, 0},
-                                {0,0,0,0,0,0, 0, 0, 0, 0},
-                                {0,0,0,0,0,0, 0, 0, 0, 0},
-                                {0,0,0,0,0,0, 0, 0, 0, 0}};
 
-    //private static int[][] map = new int[height][width];
+   /* private static int[][] map = new int[][] {
+                                {0,0,0,0,0,0, 0, 0, 0, 0},
+                                {0,0,0,0,0,0, 0, 0, 0, 0},
+                                {0,0,0,0,0,0, 0, 0, 0, 0},
+                                {0,0,0,0,0,0, 0, 0, 0, 0},
+                                {0,0,0,0,0,0, 0, 0, 0, 0},
+                                {0,0,0,0,0,0, 0, 0, 0, 0},
+                                {0,0,0,0,0,0, 0, 0, 0, 0},
+                                {0,0,0,0,0,0, 0, 0, 0, 0},
+                                {0,0,0,0,0,0, 0, 0, 0, 0},
+                                {0,0,0,0,0,0, 0, 0, 0, 0},
+                                {0,0,0,0,0,0, 0, 0, 0, 0}}; */
+
+
+    private static int[][] map = new int[height][width];
+
+    private void initMapArray() {
+        for(int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                map[i][j] = 0;
+            }
+        }
+    }
+
     private Button[][] buttonMap = new Button[height][width];
 
     private Button submitBtn;
@@ -128,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
         instance = this; //set globally accessible instance
         setContentView(R.layout.activity_main); //set and inflate UI
+        initMapArray();
         if(savedInstanceState!= null) {
             int[] tmpArray = savedInstanceState.getIntArray("KEY");
             int counter = 0;
@@ -167,24 +177,6 @@ public class MainActivity extends AppCompatActivity {
 
         submitBtn = findViewById(R.id.submit);
 
-        /*
-        int totalCounter = 0;
-        for(int i = 0; i < height; i++) {
-            for(int j = 0; j < width; j++) {
-
-                //buttonMap[i][j] = findViewById(idArray[totalCounter]);
-                totalCounter++;
-                if(map[i][j] == 2) {
-                    buttonMap[i][j].setBackgroundColor(Color.BLUE);
-                }
-               if(map[i][j] == 0) {
-                   buttonMap[i][j].setBackgroundColor(Color.WHITE);
-               }
-               if (map[i][j] == 3) {
-                    buttonMap[i][j].setBackgroundColor(Color.BLACK);
-               }
-            }
-        } */
 
         //button listener for submit
         submitBtn.setOnClickListener(new View.OnClickListener() {
@@ -199,17 +191,6 @@ public class MainActivity extends AppCompatActivity {
                             map[i][j] = 0;
                             buttonMap[i][j].setBackgroundColor(Color.WHITE);
                         }
-                        /*
-                        if(map[i][j] == 2) {
-                            buttonMap[i][j].setBackgroundColor(Color.BLUE);
-                        }
-                        if(map[i][j] == 3) {
-                            buttonMap[i][j].setBackgroundColor(Color.BLACK);
-                        }
-                        if(map[i][j] == 0) {
-                            buttonMap[i][j].setBackgroundColor(Color.WHITE);
-                        } */
-
                     }
                 }
                 //setting the map buttons clickable to false

@@ -1,8 +1,5 @@
 package com.comp2601.drbeat;
 
-/**
- * (c) 2018 L.D. Nel
- */
 import android.support.annotation.MainThread;
 import android.util.Log;
 import android.widget.Toast;
@@ -41,7 +38,7 @@ public class Ticker {
         Log.i(TAG, "ticker starting");
         if(!running) {
             running = true;
-            new Thread(new Beat()).start();
+            new Thread(new Solve()).start();
         }
     }
 
@@ -61,7 +58,7 @@ public class Ticker {
 
 
     // Beat
-    private class Beat implements Runnable {
+    private class Solve implements Runnable {
 
 
         // Run
@@ -72,76 +69,32 @@ public class Ticker {
             if(completeMap(startX,startY)) {
                 MainActivity.resetWhichBlock();
                 Log.i("TEST", "FOUND");
+                //allows thread to update ui thread
                 MainActivity.getInstance().getHandler().post(new Runnable() {
                     public void run() {
                         MainActivity.getInstance().updateSubmit();
                         MainActivity.getInstance().enableTypeMap(true);
-                        Toast.makeText(MainActivity.getInstance(), "FOUND", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.getInstance(), R.string.found_label, Toast.LENGTH_LONG).show();
 
                     }
                 });
 
             }
-            //condition if max was not solved
+            //condition if maze was not solved
             else {
                 MainActivity.resetWhichBlock();
                 Log.i("TEST", "NOT FOUND");
+                //allows thread to update ui thread
                 MainActivity.getInstance().getHandler().post(new Runnable() {
                     public void run() {
                         MainActivity.getInstance().updateSubmit();
                         MainActivity.getInstance().enableTypeMap(true);
-                        Toast.makeText(MainActivity.getInstance(), "NOT FOUND", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.getInstance(), R.string.not_found_label, Toast.LENGTH_LONG).show();
 
                     }
                 });
             }
-            /*
-            if(!isTick) {
-                playAccent();
-            }
-            else {
-                SoundManager.getInstance().playTickOne(beatSkip);
-            } */
 
-
-
-            // Thread Loop
-          /*  while (running) {
-                current = Calendar.getInstance();
-                //get current UI beatsPerMinute tempo setting
-                bpm = MainActivity.getInstance().getBPM();
-
-
-                // Check BPM
-                if (bpm < MIN_BPM_TEMPO || bpm > MAX_BPM_TEMPO) {
-                    continue; //do nothing, tempo is out of range
-                }
-
-               // delay = 60000 / bpm; //milliseconds per beat
-                delay = 1000;
-
-                elapsed = (int) (current.getTimeInMillis() - previous
-                        .getTimeInMillis());
-
-
-/*
-                // Time Elapsed
-                if (elapsed >= delay) {
-                    beatCount = beatCount % mBeatsPerMeasure + 1;
-                    MainActivity.getInstance().getHandler().post(new Runnable() {
-                        public void run() {
-                            //MainActivity.getInstance().tester();
-                            //MainActivity.getInstance().setBeatCount(beatCount);
-                        }
-                    });
-                    previous = current;
-                    Log.i(TAG, "Play Sound");
-
-
-                } */
-
-
-           // }  //end while
 
         } //end run
 
